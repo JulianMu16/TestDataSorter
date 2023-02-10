@@ -1,8 +1,8 @@
 
-# Your name:
-# Your student id:
-# Your email:
-# List who you have worked with on this project:
+# Your name: Julian Mueller
+# Your student id: 95812410
+# Your email: julianmu@umich.edu
+# List who you have worked with on this project: Just me
 
 import io
 import sys
