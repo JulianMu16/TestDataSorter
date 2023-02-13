@@ -122,14 +122,26 @@ def write_csv(data, file_name):
         None. (Doesn't return anything)
     '''
     
+    new_dict = {}
+
+    for keys in data:
+        up_dict = {"Region" : 0}
+        up_dict.update(data[keys])
+        new_dict[keys] = up_dict
+        break
+    
     newFile = open(file_name, "w")    
-    writer = csv.writer(newFile)
-    for key in data:
-        for k in data[key]:
-            writer.writerow(data[key][k])
+    fieldnames = []
+    for keys in up_dict:
+        fieldnames.append(keys)
+    writer = csv.DictWriter(newFile, fieldnames)
+    writer.writeheader()
 
+    for keys in data:
+        up_dict = {"Region" : keys}
+        up_dict.update(data[keys])
+        writer.writerow(up_dict)
 
-    pass
 
 def min_max_mutate(data, col_list):
     # Do not change the code in this function
