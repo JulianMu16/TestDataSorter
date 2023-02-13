@@ -256,8 +256,14 @@ def main():
     write_csv(diff, "proj1-mueller.csv")
 
     # create a list from the keys of inner dict
+    cols = []
+    for keys in diff:
+        for key in diff[keys]:
+            cols.append(key)
+        break
 
     # mutate the data using the provided 'min_max_mutate' function
+    mutate_dict = min_max_mutate(diff, cols)
 
     # calculate the max and mins using `min_max`
 
