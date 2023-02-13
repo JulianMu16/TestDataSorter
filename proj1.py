@@ -69,10 +69,7 @@ def calc_pct(data):
         total = int(data[keys]["Region Totals"])
         for k in data[keys]:
             pcts[keys][k] = round((int(data[keys][k]) / total) * 100, 2)
-    
-    for keys in pcts:
-        print(pcts[keys])
-
+    return pcts
 
 
 def calc_diff(sat_dict, census_dict):
@@ -94,6 +91,17 @@ def calc_diff(sat_dict, census_dict):
         the dictionary of the percent differences
     '''
     pct_dif = {}
+    pct_dif = sat_dict
+
+    for key in sat_dict:
+        del sat_dict[key]["NO RESPONSE"]
+    for key in sat_dict:
+        for k in sat_dict[key]:
+            pct_dif[key][k] = round(sat_dict[key][k] - census_dict[key][k], 4)
+            if pct_dif[key][k] < 0:
+                pct_dif[key][k] *= -1
+    return pct_dif
+
 
 def write_csv(data, file_name):
     '''
@@ -213,12 +221,15 @@ def main():
     '''
 
     # read in the data
-    data = load_csv("sat_data.csv")
+    sat_data = load_csv("sat_data.csv")
+    census_data = load_csv("census_data.csv")
 
     # compute demographic percentages
-    calc_pct(data)
+    sat_pct = calc_pct(sat_data)
+    census_pct = calc_pct(census_data)
 
     # compute the difference between test taker and state demographics
+    diff = calc_diff(sat_pct, census_pct)
 
     # output the csv
 
