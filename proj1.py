@@ -42,6 +42,9 @@ def load_csv(filename):
     for key in data:
         data[key] = d_list[i]
         i += 1
+    for key in data:
+        for keys in data[key]:
+            data[key][keys] = int(data[key][keys])
     inFile.close()
     return data
         
@@ -337,9 +340,10 @@ class HWTest(unittest.TestCase):
 
     '''
 
-    # def test_load_csv(self):
-        # self.assertEqual(self.sat_data["midwest"]["ASIAN"], 14664)
-        # self.assertEqual(len(self.sat_data), 4)
+    def test_load_csv(self):
+        sat = load_csv("sat_data.csv")
+        self.assertEqual(sat["midwest"]["ASIAN"], 14664)
+        self.assertEqual(len(sat), 4)
 
     # # testing the nat_pct extra credit function
     # def test_nat_pct(self):
