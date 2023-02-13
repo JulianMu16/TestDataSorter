@@ -350,6 +350,20 @@ class HWTest(unittest.TestCase):
         sat_pct = calc_pct(sat)
         self.assertAlmostEqual(sat_pct["midwest"]["ASIAN"], 5.87)
 
+    def test_calc_diff(self):
+        sat = load_csv("sat_data.csv")
+        census = load_csv("census_data.csv")
+        sat_pct = calc_pct(sat)
+        census_pct = calc_pct(census)
+        diff = calc_diff(sat_pct, census_pct)
+
+        self.assertAlmostEqual(diff["midwest"]["ASIAN"], 3.11)
+        self.assertNotEqual(diff["west"]["TWO OR MORE RACES"], -0.03)
+
+    def test_min_max(self):
+        self.assertAlmostEqual(self.min_max_val["max"]["BLACK"]["south"], 3.26)
+        self.assertAlmostEqual(self.min_max_val["min"]["ASIAN"]["midwest"], 3.11)
+
     # # testing the nat_pct extra credit function
     # def test_nat_pct(self):
     #    self.assertEqual(
