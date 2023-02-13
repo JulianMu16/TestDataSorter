@@ -42,6 +42,7 @@ def load_csv(filename):
     for key in data:
         data[key] = d_list[i]
         i += 1
+    inFile.close()
     return data
         
 
@@ -120,6 +121,14 @@ def write_csv(data, file_name):
     -------
         None. (Doesn't return anything)
     '''
+    
+    newFile = open(file_name, "w")    
+    writer = csv.writer(newFile)
+    for key in data:
+        for k in data[key]:
+            writer.writerow(data[key][k])
+
+
     pass
 
 def min_max_mutate(data, col_list):
@@ -232,6 +241,7 @@ def main():
     diff = calc_diff(sat_pct, census_pct)
 
     # output the csv
+    write_csv(diff, "proj1-mueller.csv")
 
     # create a list from the keys of inner dict
 
