@@ -25,7 +25,26 @@ def load_csv(filename):
     data: dict
         a nested dictionary
     '''
-    data={}
+    
+    inFile = open(filename, "r", encoding = "utf-8-sig")
+    reader = csv.DictReader(inFile)
+
+    data = {}
+    d_list = []
+
+    for row in reader:
+        d_list.append(row)
+    for dic in d_list:
+        data[dic["Region"]] = 0
+    for dic in d_list:
+        del dic["Region"]
+    i = 0
+    for key in data:
+        data[key] = d_list[i]
+        i += 1
+    return data
+            
+
 
 def calc_pct(data):
     '''
@@ -183,6 +202,7 @@ def main():
     '''
 
     # read in the data
+    load_csv("sat_data.csv")
 
     # compute demographic percentages
 
