@@ -43,8 +43,7 @@ def load_csv(filename):
         data[key] = d_list[i]
         i += 1
     return data
-            
-
+        
 
 def calc_pct(data):
     '''
@@ -63,6 +62,18 @@ def calc_pct(data):
         for each demographic for each region in the data set
     '''
     pcts = {}
+    total = 0
+
+    pcts = data
+    for keys in data:
+        total = int(data[keys]["Region Totals"])
+        for k in data[keys]:
+            pcts[keys][k] = round((int(data[keys][k]) / total) * 100, 2)
+    
+    for keys in pcts:
+        print(pcts[keys])
+
+
 
 def calc_diff(sat_dict, census_dict):
     '''
@@ -202,9 +213,10 @@ def main():
     '''
 
     # read in the data
-    load_csv("sat_data.csv")
+    data = load_csv("sat_data.csv")
 
     # compute demographic percentages
+    calc_pct(data)
 
     # compute the difference between test taker and state demographics
 
@@ -221,6 +233,8 @@ def main():
     # extra credit here
 
     # if you did the EC, print the dict you get from nat_diff
+  
+    # tests
 
     pass
 
@@ -265,6 +279,10 @@ class HWTest(unittest.TestCase):
     Create test functions for the functions you wrote here!
 
     '''
+
+    # def test_load_csv(self):
+        # self.assertEqual(self.sat_data["midwest"]["ASIAN"], 14664)
+        # self.assertEqual(len(self.sat_data), 4)
 
     # # testing the nat_pct extra credit function
     # def test_nat_pct(self):
