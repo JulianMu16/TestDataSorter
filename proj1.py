@@ -190,6 +190,22 @@ def min_max(data):
     '''
     min_max = {"min":{},"max":{}}
 
+    for keys in data:
+        max_data = {}
+        min_data = {}
+
+        max_region = max(data[keys], key=data[keys].get)
+        min_region = min(data[keys], key=data[keys].get)
+
+        max_data[max_region] = max(data[keys].values())
+        min_data[min_region] = min(data[keys].values())
+
+        min_max["max"][keys] = max_data
+        min_max["min"][keys] = min_data
+
+    return min_max
+
+        
 def nat_pct(data, col_list):
     '''
     EXTRA CREDIT
@@ -263,11 +279,13 @@ def main():
         break
 
     # mutate the data using the provided 'min_max_mutate' function
-    mutate_dict = min_max_mutate(diff, cols)
+    mutate_data = min_max_mutate(diff, cols)
 
     # calculate the max and mins using `min_max`
+    min_max_data = min_max(mutate_data)
 
     # print 'min_max' as well 
+    print(min_max_data)
 
     # extra credit here
 
