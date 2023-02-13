@@ -345,6 +345,11 @@ class HWTest(unittest.TestCase):
         self.assertEqual(sat["midwest"]["ASIAN"], 14664)
         self.assertEqual(len(sat), 4)
 
+    def test_calc_pct(self):
+        sat = load_csv("sat_data.csv")
+        sat_pct = calc_pct(sat)
+        self.assertAlmostEqual(sat_pct["midwest"]["ASIAN"], 5.87)
+
     # # testing the nat_pct extra credit function
     # def test_nat_pct(self):
     #    self.assertEqual(
