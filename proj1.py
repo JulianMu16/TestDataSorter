@@ -1,9 +1,3 @@
-
-# Your name: Julian Mueller
-# Your student id: 95812410
-# Your email: julianmu@umich.edu
-# List who you have worked with on this project: Just me
-
 import io
 import sys
 import csv
@@ -147,7 +141,6 @@ def write_csv(data, file_name):
 
 
 def min_max_mutate(data, col_list):
-    # Do not change the code in this function
     '''
     Mutates the data to simplify the implementation of
     `min_max` by moving the race/ethnicity key to the outside
@@ -208,57 +201,8 @@ def min_max(data):
 
     return min_max
 
-        
-def nat_pct(data, col_list):
-    '''
-    EXTRA CREDIT
-    Uses either SAT or Census data dictionaries
-    to sum demographic values, calculating
-    national demographic percentages from regional
-    demographic percentages
-
-    Parameters
-    ----------
-    data: dict
-        Either SAT or Census data
-    col_list: list
-        list of the columns to loop through. helps filter out region totals columns
-
-    Returns
-    -------
-    data_totals: dict
-        dictionary of the national demographic percentages
-
-    '''
-    data_totals = {}
-
-def nat_diff(sat_data, census_data):
-    '''
-    EXTRA CREDIT
-    Calculates the difference between SAT and Census
-    data on a national scale
-
-    Parameters
-    ----------
-    sat_data: dict
-        national SAT data
-    census_data: dict
-        national Census data
-
-    Returns
-    nat_difference: dict
-        the dictionary consisting of the demographic
-        difference on national level
-    '''
-    nat_difference = {}
-
+      
 def main():
-    '''
-    Fill out main per the comments below; 
-    You don't have to print anything here, 
-    but your code should run write_csv()
-    on your computed dict of differences
-    '''
 
     # read in the data
     sat_data = load_csv("sat_data.csv")
@@ -290,12 +234,6 @@ def main():
     # print 'min_max' as well 
     print(min_max_data)
 
-    # extra credit here
-
-    # if you did the EC, print the dict you get from nat_diff
-  
-    # tests
-
     pass
 
 main()
@@ -324,22 +262,6 @@ class HWTest(unittest.TestCase):
 
         self.min_max_val = min_max(self.mutated)
 
-        # extra credit
-        # providing a list of col vals to cycle through
-        self.col_list = self.census_data["midwest"].keys()
-
-        # computing the national percentages
-        self.sat_nat_pct = nat_pct(self.sat_data, self.col_list)
-        self.census_nat_pct = nat_pct(self.census_data, self.col_list)
-
-        self.dif = nat_diff(self.sat_nat_pct, self.census_nat_pct)
-
-    '''
-
-    Create test functions for the functions you wrote here!
-
-    '''
-
     def test_load_csv(self):
         sat = load_csv("sat_data.csv")
         self.assertEqual(sat["midwest"]["ASIAN"], 14664)
@@ -364,30 +286,6 @@ class HWTest(unittest.TestCase):
         self.assertAlmostEqual(self.min_max_val["max"]["BLACK"]["south"], 3.26)
         self.assertAlmostEqual(self.min_max_val["min"]["ASIAN"]["midwest"], 3.11)
 
-    # # testing the nat_pct extra credit function
-    # def test_nat_pct(self):
-    #    self.assertEqual(
-    #    nat_pct({"region":{"demo":5,"Region Totals":10}},["demo", "Region Totals"]),
-    #    {'Region Totals': 100.0, 'demo': 50.0})
-
-    # # second test for the nat_pct extra credit function
-    # def test2_nat_pct(self):
-    #     self.assertEqual(
-    #         self.sat_nat_pct["AMERICAN INDIAN/ALASKA NATIVE"],
-    #         0.73)
-
-    # # testing the nat_dif extra credit function
-    # def test_nat_diff(self):
-    #     self.assertEqual(
-    #         nat_diff({"demo":0.53, "Region Totals": 1},{"demo":0.5, "Region Totals": 1}),
-    #         {'Region Totals': 0, "demo":0.03}
-    #         )
-
-    # # second test for the nat_diff extra credit function
-    # def test2_nat_diff(self):
-    #     self.assertEqual(
-    #         self.dif["ASIAN"],
-    #         3.32)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
